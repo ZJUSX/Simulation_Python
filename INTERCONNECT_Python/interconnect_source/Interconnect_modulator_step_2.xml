@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interconnect>
+    <model>
+        <property>
+            <general>
+                <set name="annotate" value="true"/>
+                <set name="description" value="The modulator interconnect simulation ENA"/>
+            </general>
+            <simulation>
+                <set name="bitrate" value="2e10"/>
+                <set name="simulation input" value="sequence length"/>
+                <set name="samples per bit" value="128"/>
+                <set name="sequence length" value="256"/>
+            </simulation>
+            <thermal>
+                <set name="temperature" value="300"/>
+            </thermal>
+            <designKit>
+                <set name="component id" value="0"/>
+            </designKit>
+            <validation>
+                <set name="check input sample rate" value="0"/>
+                <set name="delay insertion" value="output ports"/>
+            </validation>
+        </property>
+        <element tag="ENA_1" type="Network Analyzer" x_position="0" y_position="0">
+        </element>
+        <element tag="TW_1" type="Traveling Wave Electrode" x_position="200" y_position="100">
+            <standard>
+                <set name="length" value="0.001"/>
+                <set name="loss type" value="table"/>
+                <set name="load loss from file" value="true"/>
+                <set name="microwave loss" value="0.3"/>
+                <set name="characteristic impedance type" value="table"/>
+                <set name="load characteristic impedance from file" value="true"/>
+                <set name="terminating resistance" value="50"/>
+                <set name="terminating reactance" value="0"/>
+                <set name="junction resistance" value="0.0159207"/>
+                <set name="junction capacitance type" value="table"/>
+            </standard>
+            <waveguide>
+                <set name="microwave index type" value="table"/>
+                <set name="load microwave index from file" value="true"/>
+                <set name="optical index" value="3.93583"/>
+            </waveguide>
+            <numerical>
+                <set name="number of taps estimation" value="disabled"/>
+                <set name="number of fir taps" value="1024"/>
+            </numerical>
+        </element>
+    </model>
+    <connect>
+        <link out_name="ENA_1" out_port="output" in_name="TW_1" in_port="input"/>
+        <link out_name="TW_1" out_port="output" in_name="ENA_1" in_port="input 1"/>
+    </connect>
+</interconnect>
+
