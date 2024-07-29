@@ -1,0 +1,30 @@
+Name	Value	Unit	"Evaluated Value"	Type
+d_si	675	um	675um	Design
+d_sioup	0.8	um	0.8um	Design
+d_ln	0.4	um	0.4um	Design
+d_lnbd	0.2	um	0.2um	Design
+d_au	900	nm	900nm	Design
+d_siodw	4.7	um	4.7um	Design
+w_sig	11	um	11um	Design
+gap	5	um	5um	Design
+ly	1000	um	1000um	Design
+LNBDSW	1.4	um	1.4um	Design
+theta1	60	deg	60deg	Design
+w_au	130	um	130um	Design
+w_sig2	45	um	45um	Design
+gap2	25	um	25um	Design
+l_taper	30	um	30um	Design
+r_bend	100	um	100um	Design
+l_tanzhen	500	um	500um	Design
+l_all	ly+l_tanzhen*2		2000um	Design
+l_shouzhai	l_taper/2+30um		45um	Design
+x_z	15	um	15um	Design
+w_s	100	um	100um	Design
+w_t	0.4	um	0.4um	Design
+w_t1	0.2	um	0.2um	Design
+r2	40	um	40um	Design
+l	w_au*2+gap*2+w_sig+l_shouzhai*2+2*l_taper		431um	Design
+LNBDXW	d_lnbd/tan(theta1)*2+LNBDSW		1.6309401um	Design
+w_t2	0.5*(gap-LNBDXW-w_t*2-w_t1*2)		1.0845299um	Design
+sioxw	gap-w_t2*2		2.8309401um	Design
+siosw	sioxw-d_sioup/tan(theta1)*2		1.9071797um	Design
