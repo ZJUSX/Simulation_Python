@@ -1,0 +1,26 @@
+[
+  {
+    "name": "modulator example",
+    "image path": "images/modulator.png",
+    "dependence": ["HFSS", "Comsol", "Interconnect"],
+    "description": "This is a modulator simulation example."
+  },
+  {
+    "name": "modulator ENA example",
+    "image path": "images/modulator_ENA.png",
+    "dependence": ["HFSS", "Interconnect"],
+    "description": "This is a modulator ENA simulation example."
+  },
+  {
+    "name": "HFSS example",
+    "image path": "images/HFSS.png",
+    "dependence": ["HFSS"],
+    "description": "This is a HFSS simulation example."
+  },
+  {
+    "name": "Comsol example",
+    "image path": "images/Comsol.png",
+    "dependence": ["Comsol"],
+    "description": "This is a Comsol simulation example."
+  }
+]
