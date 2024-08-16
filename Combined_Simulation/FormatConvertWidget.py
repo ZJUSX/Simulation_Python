@@ -6,6 +6,9 @@ import logging
 from typing import Union
 from PyQt5 import QtWidgets, QtCore, QtGui
 
+from HFSS_ReportSettingWidget import Report_Widget
+from ProjectManager import projectManagerSingleton
+
 class Interconnect_InputTableWidget(QtWidgets.QTableWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -695,6 +698,8 @@ class HFSS_Output_FormatInfoWidget(QtWidgets.QWidget):
         logging.info(basicInfo)
         logging.info(settingInfo)
 
+        self.project_name = basicInfo['project_name']
+
         # 基本信息窗口
         basicInfoWidgetGrid = QtWidgets.QGridLayout()
         projectNameLabel = QtWidgets.QLabel("project name")
@@ -821,6 +826,55 @@ class HFSS_Output_FormatInfoWidget(QtWidgets.QWidget):
         print("FormatInfoWidget delete")
 
     def add_report(self):
+        hfss_adapter = projectManagerSingleton.get_adapter(project_name=self.project_name)
+        hfss_report_widget = Report_Widget(adapter=hfss_adapter)
+        hfss_report_widget.new_report_notifier.connect(self.set_report_information)
+        hfss_report_widget.show()
+
+    def set_report_information(self, report_information):
+        print(report_information)
+
+        num_item = self.report_table_widget.rowCount()
+        self.report_table_widget.setRowCount(num_item + 1)
+
+        Idx = num_item
+        # 1. 索引号
+        item = QtWidgets.QTableWidgetItem(str(Idx + 1))
+        item.setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.report_table_widget.setItem(Idx, 0, item)
+
+        # 2. 复选框
+        checkBox = QtWidgets.QCheckBox()  # 1.实例复选框
+        if report_information['category'] == 'Output Variables':
+            checkBox.setCheckState(QtCore.Qt.CheckState.Checked)  # 复选框默认选择
+        else:
+            checkBox.setCheckState(QtCore.Qt.CheckState.Unchecked)
+        hLayout = QtWidgets.QHBoxLayout()  # 2.实例一个水平布局
+        hLayout.addWidget(checkBox)  # 在布局里添加checkBox
+        hLayout.setAlignment(checkBox, QtCore.Qt.AlignmentFlag.AlignCenter)  # 3.在布局里居中设置
+        widget = QtWidgets.QWidget()  # 4.实例化一个QWidget
+        widget.setLayout(hLayout)  # 5.在QWidget放置布局
+        self.report_table_widget.setCellWidget(Idx, 1, widget)
+
+        # 3. 报告的名称
+        item = QtWidgets.QTableWidgetItem(report_information['expression'])
+        item.setText(report_information['expression'])
+        item.setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.report_table_widget.setItem(Idx, 2, item)
+
+        # 4. 表达式
+        item = QtWidgets.QTableWidgetItem(report_information['expression'])
+        item.setText(report_information['expression'])
+        item.setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.report_table_widget.setItem(Idx, 3, item)
+
+        # 5. 解释器
+        item = QtWidgets.QTableWidgetItem(report_information['solution'])
+        item.setText(report_information['solution'])
+        item.setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.report_table_widget.setItem(Idx, 4, item)
+
+    def add_report_test(self):
         # 设置需要导出的报告名称
         num_item = self.report_table_widget.rowCount()
         self.report_table_widget.setRowCount(num_item + 1)

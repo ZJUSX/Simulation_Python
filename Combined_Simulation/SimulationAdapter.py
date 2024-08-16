@@ -192,6 +192,45 @@ class HfssAdapter(SimulationSoftwareAdapter):
 
         self.__aedtapp.post.create_report(expressions)
 
+    def get_solution_test(self):
+        self.create_output_variable(variable="loss", expression="Re(Gamma(1))*8.68/100", solution="Setup1:Sweep")
+        print("Output Variables: ", self.__aedtapp.output_variables)
+        print("Variables: ", self.__aedtapp.variable_manager.variables)
+        print("Expression: ", self.__aedtapp.variable_manager.get_expression(variable_name="LNBDXW"))
+
+        print("expression: ", self.__aedtapp.get_output_variable(variable="loss", solution="Setup1:Sweep"))
+
+
+    def get_variable_names(self):
+        return self.__aedtapp.variable_manager.variable_names
+
+    def get_output_variables(self):
+        return self.__aedtapp.output_variables
+
+    def get_reprot_type(self):
+        return self.__aedtapp.post.available_report_types
+
+    def get_active_setup(self):
+        return self.__aedtapp.active_setup
+
+    def get_solution(self, report_category=None):
+        return self.__aedtapp.post.available_report_solutions(report_category)
+
+    def get_category(self, report_category=None, display_type=None, solution=None, context="", is_siwave_dc=False):
+        return self.__aedtapp.post.available_quantities_categories(report_category=report_category,
+                                                                   display_type=display_type,
+                                                                   solution=solution,
+                                                                   context=context,
+                                                                   is_siwave_dc=is_siwave_dc)
+
+    def get_quantity(self, report_category=None, display_type=None, solution=None, quantities_category=None, context="", is_siwave_dc=False):
+        return self.__aedtapp.post.available_report_quantities(report_category=report_category,
+                                                               display_type=display_type,
+                                                               solution=solution,
+                                                               quantities_category=quantities_category,
+                                                               context=context,
+                                                               is_siwave_dc=is_siwave_dc)
+
     def export_report(self, export_path):
 
         self.__aedtapp.export_results(export_folder=export_path)

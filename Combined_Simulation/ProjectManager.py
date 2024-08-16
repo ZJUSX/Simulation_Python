@@ -137,6 +137,9 @@ class ProjectManager(QtCore.QObject):
             self.Interconnect_count += 1
             return "Interconnect_Project_" + str(self.Interconnect_count)
 
+    def get_adapter(self, project_name):
+        return self.project_dict[project_name]["adapter"]
+
     def get_variables(self, project_name):
         prjAdapter = self.project_dict[project_name]["adapter"]
         variables = prjAdapter.get_variables()
